@@ -2,6 +2,8 @@ import pgn
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
+import uuid
 
 
 def make_dfs(filename, playername):
@@ -51,6 +53,7 @@ def show_events(df):
     print(black_events.index.values)
 
     black_events.plot(kind='barh', x=range(len(black_events)))
+    #plt.savefig(path_to_img + f'/events{str(uuid.uuid1())}.png')
     plt.show()
 
 def show_openings(df, color='black'):
@@ -65,20 +68,33 @@ def show_openings(df, color='black'):
         ax.text(i.get_width()+700, i.get_y()+.18, \
                 str(round((i.get_width()), 2)), fontsize=11, color='dimgrey')
     plt.tight_layout()
+    #plt.savefig(path_to_img + f'/opening{str(uuid.uuid1())}.png')
     plt.show()
 
 def show_timecorr(df):
-    sns.swarmplot(x="result", y="timecontrol_base", hue='increment', data=df)
+    splot = sns.swarmplot(x="result", y="timecontrol_base", hue='increment', data=df)
+    #fig = splot.get_figure()
+    #fig.savefig(path_to_img + f'/timecorr{str(uuid.uuid1())}.png')
     plt.show()
 
-gd_black, gd_white, gd_both = make_dfs(filename='lichess_grossmendPro_2018-01-30.pgn', playername='grossmendPro')
-me_black, me_white, me_both = make_dfs(filename='lichess_GrailFinder_2018-01-30.pgn', playername='GrailFinder')
 
-# show_openings(gd_black)
-# show_openings(gd_white)
+def check_create_dir(path='./img'):
+    os.makedirs(path, exist_ok=True)
 
-# show_openings(me_black)
-# show_openings(me_white)
+if __name__ == '__main__':
 
-show_timecorr(me_black)
-show_timecorr(me_white)
+    path_to_img = './img'
+
+    check_create_dir(path=path_to_img)
+
+    gd_black, gd_white, gd_both = make_dfs(filename='lichess_grossmendPro_2018-01-30.pgn', playername='grossmendPro')
+    me_black, me_white, me_both = make_dfs(filename='lichess_GrailFinder_2018-01-30.pgn', playername='GrailFinder')
+
+
+    show_openings(me_black)
+    show_openings(me_white)
+
+    show_events(me_both)
+
+    show_timecorr(me_black)
+    show_timecorr(me_white)
