@@ -53,8 +53,8 @@ def show_events(df):
     print(black_events.index.values)
 
     black_events.plot(kind='barh', x=range(len(black_events)))
-    plt.savefig(path_to_img + f'/events{str(uuid.uuid1())}.png')
-    #plt.show()
+    #plt.savefig(path_to_img + f'/events{str(uuid.uuid1())}.png')
+    plt.show()
 
 def show_openings(df, color='black'):
     black_events = df.groupby('opening')[color].count()
@@ -65,13 +65,14 @@ def show_openings(df, color='black'):
 
     black_events.plot(kind='barh', x=range(len(black_events)))
     plt.tight_layout()
-    plt.savefig(path_to_img + f'/opening{str(uuid.uuid1())}.png')
-    #plt.show()
+    #plt.savefig(path_to_img + f'/opening{str(uuid.uuid1())}.png')
+    plt.show()
 
 def show_timecorr(df):
-    sns.swarmplot(x="result", y="timecontrol_base", hue='increment', data=df)
-    plt.savefig(path_to_img + f'/timecorr{str(uuid.uuid1())}.png')
-    #plt.show()
+    splot = sns.swarmplot(x="result", y="timecontrol_base", hue='increment', data=df)
+    #fig = splot.get_figure()
+    #fig.savefig(path_to_img + f'/timecorr{str(uuid.uuid1())}.png')
+    plt.show()
 
 
 def check_create_dir(path='./img'):
