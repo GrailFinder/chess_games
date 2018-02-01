@@ -60,7 +60,10 @@ def show_openings(df, color='black'):
     black_events = black_events.drop_duplicates()
     print(black_events)
 
-    black_events.plot(kind='barh', x=range(len(black_events)))
+    ax = black_events.plot(kind='barh', x=range(len(black_events)))
+    for i in ax.patches:
+        ax.text(i.get_width()+700, i.get_y()+.18, \
+                str(round((i.get_width()), 2)), fontsize=11, color='dimgrey')
     plt.tight_layout()
     plt.show()
 
