@@ -44,38 +44,42 @@ def split_timecontrol(df):
     df.increment = pd.to_numeric(df.increment, errors='coerse')
     return df
 
-
 def show_events(df):
 
-    black_events = df.groupby('event')['opening'].count()
-    print(type(black_events))
+    events = df.groupby('event')['opening'].count()
 
-    print(black_events.index.values)
+    events = events[events > 1]
 
-    black_events.plot(kind='barh', x=range(len(black_events)))
-    #plt.savefig(path_to_img + f'/events{str(uuid.uuid1())}.png')
-    plt.show()
+    ax = events.plot(kind='barh', x=range(len(events)))
+    for i in ax.patches:
+        ax.text(i.get_width()+.1, i.get_y()+.31, \
+            str(round((i.get_width()), 2)), fontsize=6, color='dimgrey')
+    plt.tight_layout()
+    plt.savefig(path_to_img + f'/events{str(uuid.uuid1())}.png')
+    #plt.show()
+    plt.cla()
 
 def show_openings(df, color='black'):
-    black_events = df.groupby('opening')[color].count()
-    print(type(black_events))
+    opens = df.groupby('opening')[color].count()
 
-    black_events = black_events.drop_duplicates()
-    print(black_events)
+    opens = opens.drop_duplicates()
+    opens = opens[opens > 1]
 
-    ax = black_events.plot(kind='barh', x=range(len(black_events)))
+    ax = opens.plot(kind='barh', x=range(len(opens)))
     for i in ax.patches:
-        ax.text(i.get_width()+700, i.get_y()+.18, \
-                str(round((i.get_width()), 2)), fontsize=11, color='dimgrey')
+        ax.text(i.get_width()+.1, i.get_y()+.1, \
+            str(round((i.get_width()), 2)), fontsize=6, color='dimgrey')
     plt.tight_layout()
-    #plt.savefig(path_to_img + f'/opening{str(uuid.uuid1())}.png')
-    plt.show()
+    plt.savefig(path_to_img + f'/opening{str(uuid.uuid1())}.png')
+    #plt.show()
+    plt.cla()
 
 def show_timecorr(df):
     splot = sns.swarmplot(x="result", y="timecontrol_base", hue='increment', data=df)
-    #fig = splot.get_figure()
-    #fig.savefig(path_to_img + f'/timecorr{str(uuid.uuid1())}.png')
-    plt.show()
+    fig = splot.get_figure()
+    fig.savefig(path_to_img + f'/timecorr{str(uuid.uuid1())}.png')
+    #plt.show()
+    plt.cla()
 
 
 def check_create_dir(path='./img'):
@@ -96,5 +100,5 @@ if __name__ == '__main__':
 
     show_events(me_both)
 
-    show_timecorr(me_black)
-    show_timecorr(me_white)
+    # show_timecorr(me_black)
+    # show_timecorr(me_white)
