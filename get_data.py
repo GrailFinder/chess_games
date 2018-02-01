@@ -14,7 +14,6 @@ def make_dfs(filename, playername):
     dat = pgn.loads(pgn_text) # Returns a list of PGNGame
     sdat = pgn.dumps(pgn_game) # Returns a string with a pgn game
 
-    f_g = dat[0]
     games = list()
 
     for game in dat:
@@ -26,6 +25,7 @@ def make_dfs(filename, playername):
 
     df = pd.DataFrame(games)
     split_timecontrol(df)
+
 
     df.whiteelo = pd.to_numeric(df.whiteelo, errors='coerce')
     df.blackelo = pd.to_numeric(df.blackelo, errors='coerce')
@@ -92,13 +92,13 @@ if __name__ == '__main__':
     check_create_dir(path=path_to_img)
 
     gd_black, gd_white, gd_both = make_dfs(filename='lichess_grossmendPro_2018-01-30.pgn', playername='grossmendPro')
-    me_black, me_white, me_both = make_dfs(filename='lichess_GrailFinder_2018-01-30.pgn', playername='GrailFinder')
+    #me_black, me_white, me_both = make_dfs(filename='lichess_GrailFinder_2018-01-30.pgn', playername='GrailFinder')
 
 
-    show_openings(me_black)
-    show_openings(me_white)
+    # show_openings(me_black)
+    # show_openings(me_white)
 
-    show_events(me_both)
+    # show_events(me_both)
 
     # show_timecorr(me_black)
     # show_timecorr(me_white)
