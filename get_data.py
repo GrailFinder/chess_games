@@ -26,6 +26,10 @@ def make_dfs(filename, playername):
 
     df = pd.DataFrame(games)
 
+    split_timecontrol(df)
+
+    print(df.head)
+
 
     df.whiteelo = pd.to_numeric(df.whiteelo, errors='coerce')
     df.blackelo = pd.to_numeric(df.blackelo, errors='coerce')
@@ -36,6 +40,10 @@ def make_dfs(filename, playername):
     me_white = df.loc[df.white == playername]
 
     return me_black, me_white, df
+
+def split_timecontrol(df):
+    df[['timecontrol_base', 'increment']] = df.timecontrol.str.split('+', expand=True)
+    return df
 
 
 def show_events(df):
