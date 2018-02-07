@@ -44,7 +44,7 @@ def split_timecontrol(df):
     df.increment = pd.to_numeric(df.increment, errors='coerse')
     return df
 
-def show_events(df):
+def show_events(df, save_mod=False):
 
     events = df.groupby('event')['opening'].count()
 
@@ -55,11 +55,13 @@ def show_events(df):
         ax.text(i.get_width()+.1, i.get_y()+.31, \
             str(round((i.get_width()), 2)), fontsize=6, color='dimgrey')
     plt.tight_layout()
-    plt.savefig(path_to_img + f'/events{str(uuid.uuid1())}.png')
-    #plt.show()
+    if save_mod:
+        plt.savefig(path_to_img + f'/events{str(uuid.uuid1())}.png')
+    else:
+        plt.show()
     plt.cla()
 
-def show_openings(df, color='black'):
+def show_openings(df, color='black', save_mod=False):
     opens = df.groupby('opening')[color].count()
 
     opens = opens.drop_duplicates()
@@ -70,15 +72,20 @@ def show_openings(df, color='black'):
         ax.text(i.get_width()+.1, i.get_y()+.1, \
             str(round((i.get_width()), 2)), fontsize=6, color='dimgrey')
     plt.tight_layout()
-    plt.savefig(path_to_img + f'/opening{str(uuid.uuid1())}.png')
-    #plt.show()
+    if save_mod:
+        plt.savefig(path_to_img + f'/opening{str(uuid.uuid1())}.png')
+    else:
+        plt.show()
     plt.cla()
 
-def show_timecorr(df):
-    splot = sns.swarmplot(x="result", y="timecontrol_base", hue='increment', data=df)
-    fig = splot.get_figure()
-    fig.savefig(path_to_img + f'/timecorr{str(uuid.uuid1())}.png')
-    #plt.show()
+def show_timecorr(df, save_mod=False):
+    splot = sns.swarmplot(x="timecontrol_base", y="increment", hue="result", data=df)
+    if save_mod:
+        fig = splot.get_figure()
+        fig.set_size_inches(11.7, 8.27)
+        fig.savefig(path_to_img + f'/timecorr{str(uuid.uuid1())}.png')
+    else:
+        plt.show()
     plt.cla()
 
 
@@ -91,8 +98,8 @@ if __name__ == '__main__':
 
     check_create_dir(path=path_to_img)
 
-    gd_black, gd_white, gd_both = make_dfs(filename='lichess_grossmendPro_2018-01-30.pgn', playername='grossmendPro')
-    #me_black, me_white, me_both = make_dfs(filename='lichess_GrailFinder_2018-01-30.pgn', playername='GrailFinder')
+    #gd_black, gd_white, gd_both = make_dfs(filename='lichess_grossmendPro_2018-01-30.pgn', playername='grossmendPro')
+    me_black, me_white, me_both = make_dfs(filename='lichess_GrailFinder_2018-01-30.pgn', playername='GrailFinder')
 
 
     # show_openings(me_black)
@@ -100,5 +107,5 @@ if __name__ == '__main__':
 
     # show_events(me_both)
 
-    # show_timecorr(me_black)
-    # show_timecorr(me_white)
+    show_timecorr(me_black, save_mod=True)
+    #show_timecorr(me_white)
