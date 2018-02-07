@@ -82,7 +82,7 @@ def show_timecorr(df, save_mod=False):
     splot = sns.swarmplot(x="timecontrol_base", y="increment", hue="result", data=df)
     if save_mod:
         fig = splot.get_figure()
-        fig.set_size_inches(11.7, 8.27)
+        fig.set_size_inches(14.7, 8.27)
         fig.savefig(path_to_img + f'/timecorr{str(uuid.uuid1())}.png')
     else:
         plt.show()
@@ -108,4 +108,4 @@ if __name__ == '__main__':
     # show_events(me_both)
 
     show_timecorr(me_black, save_mod=True)
-    #show_timecorr(me_white)
+    show_timecorr(me_white, save_mod=True)

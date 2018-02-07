@@ -7,6 +7,6 @@ Just playing with the data from my chess games on lichess.org.
 ### Openings as white  
 ![openings-as-white](img/opening58dbed15-0738-11e8-8f01-4ccc6ab3e533.png)  
 ### Time control as black  
-![timecontrol-as-black](img/timecorr4f0b7d78-0732-11e8-8f01-4ccc6ab3e533.png)  
+![timecontrol-as-black](img/timecorr78a3b028-0bfc-11e8-a553-b8819833032e.png)  
 ### Time control as white  
-![timecontrol-as-white](img/timecorr4f0b7d79-0732-11e8-8f01-4ccc6ab3e533.png)  
+![timecontrol-as-white](img/timecorr78a3b029-0bfc-11e8-a553-b8819833032e.png)
